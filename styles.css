@@ -3,7 +3,7 @@
     --bg-color: #f5f5f5;
     --text-color: #000000;
     --border-color: #000000;
-    --box-bg: #ffffff;
+    --box-bg: #ffffff00;
 }
 
 /* Dark theme */
@@ -12,7 +12,7 @@
         --bg-color: #1a1a1a;
         --text-color: #ffffff;
         --border-color: #ffffff;
-        --box-bg: #000000;
+        --box-bg: #00000000;
     }
 }
 
