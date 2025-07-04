@@ -10,6 +10,11 @@ const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
 
+// Interval IDs for cleanup
+let countdownInterval;
+let logInterval;
+let confettiTriggered = false;
+
 // Function to pad numbers with leading zero
 function padNumber(num) {
     return num.toString().padStart(2, '0');
@@ -23,6 +28,34 @@ function animateUpdate(element) {
     }, 200);
 }
 
+// Function to trigger confetti effect
+function triggerConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+    
+    // Additional confetti bursts for more celebration
+    setTimeout(() => {
+        confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+    }, 250);
+    
+    setTimeout(() => {
+        confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+    }, 400);
+}
+
 // Function to update the countdown
 function updateCountdown() {
     const now = new Date().getTime();
@@ -34,6 +67,17 @@ function updateCountdown() {
         hoursElement.textContent = '00';
         minutesElement.textContent = '00';
         secondsElement.textContent = '00';
+        
+        // Trigger confetti only once
+        if (!confettiTriggered) {
+            triggerConfetti();
+            confettiTriggered = true;
+            console.log('Countdown finished!');
+            
+            // Clear intervals to stop updating
+            clearInterval(countdownInterval);
+            clearInterval(logInterval);
+        }
         return;
     }
 
@@ -73,16 +117,25 @@ function updateCountdown() {
 // Initialize countdown
 updateCountdown();
 
-// Update every second
-setInterval(updateCountdown, 1000);
+// Check if countdown is already finished on page load
+const now = new Date().getTime();
+const distance = TARGET_DATE - now;
 
-// Optional: Log when countdown ends
-setInterval(() => {
-    const now = new Date().getTime();
-    const distance = TARGET_DATE - now;
+if (distance < 0) {
+    // Countdown already finished, trigger confetti immediately
+    triggerConfetti();
+    confettiTriggered = true;
+    console.log('Countdown finished!');
+} else {
+    // Start intervals only if countdown is still active
+    countdownInterval = setInterval(updateCountdown, 1000);
     
-    if (distance < 0) {
-        console.log('Countdown finished!');
-        // You can add custom logic here when countdown ends, for now I'll leave it empty. I don't really have much time for projects
-    }
-}, 1000);
+    logInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = TARGET_DATE - now;
+        
+        if (distance < 0 && !confettiTriggered) {
+            console.log('Countdown finished!');
+        }
+    }, 1000);
+}
