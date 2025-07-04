@@ -1,34 +1,36 @@
 /* CSS Variables for theme colors - Dark theme is default now */
+
+/* === Dark Theme === */
+/*
+:root {
+    --bg-color: #121212;
+    --text-color: #FFFFFF;
+    --border-color: #333333;
+    --box-bg: #00000000;
+}
+*/
+
+/* === Light Theme === */
+/*
 :root {
     --bg-color: #121212;
     --text-color: #fefefe;
     --border-color: #333333;
     --box-bg: #00000000;
 }
-
-/* Light theme */
-/*
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg-color: #121212;
-        --text-color: #fefefe;
-        --border-color: #333333;
-        --box-bg: #00000000;
-    }
-}
 */
 
-/* Original dark theme media query */
-/* 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #121212;
-        --text-color: #fefefe;
-        --border-color: #333333;
-        --box-bg: #00000000;
-    }
+/* === Wachumba Theme === */
+
+:root {
+    --bg-color: #E8532B;
+    --text-color: #fefefe;
+    --border-color: #FBDB1C;
+    --box-bg: #00000000;
 }
-*/
+
+
+/* =============== STYLES =============== */
 
 * {
   margin: 0;
